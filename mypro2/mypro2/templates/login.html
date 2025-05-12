@@ -1,0 +1,46 @@
+{% extends "BasePage.html" %} <!-- extends繼承-->
+
+{% block titke %}
+	登入頁
+{% endblock %}
+
+
+{% block css %}
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link href="/static/css/contact.css" rel="stylesheet">	
+{% endblock %}
+
+
+
+
+{% block context %}
+
+<div class="container">
+  <h2>會員登入</h2>
+  <span>{{msg}}</span>
+  <form method="post">
+
+  	{% csrf_token %} <!-- <form method="post"> 如果是post就要加csrf_token 金鑰解密-->
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" name="email" id="email" required/>
+    </div>
+
+  
+    <div class="form-group">
+      <label for="password">密碼:</label>
+      <input type="password" class="form-control" name="password" id="password" required  />
+    </div>
+
+	<button type="submit" class="btn btn-info">送出</button>
+  <a href="/register" class="btn btn-info">註冊</a>
+
+  </form>
+
+ 
+
+
+
+</div>
+{% endblock %}

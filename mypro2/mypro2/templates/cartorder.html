@@ -1,0 +1,126 @@
+{% extends "BasePage.html" %} <!-- extends繼承-->
+
+{% block title %}
+	購物車
+{% endblock %}
+
+
+{% block context %}
+
+<div style="margin-top: 75px;"></div>
+<div id="cartDiv">
+	<form action="/cartok/" method="post"> <!--因為方法是post一定要加token-->
+		{% csrf_token %}
+		<table width="90%" cellpadding="4" cellspacing="0" border="0" align="center"><!--border邊框線 align表格置中-->
+			<tr>
+				<th align="left">商品名稱</th>
+				<th width="80" align="center">單價</th>
+				<th width="80" align="center">數量</th>
+				<th width="100" align="center">金額</th>
+			</tr>
+			<!--
+			forloop.counter0 從0開始遞增
+			forloop.counter 從1開始遞增
+			forloop.revcounter0 從總數開始遞減到0
+			forloop.revcounter 從總數開始遞減到1
+			forloop.first 判斷是否為第1次迴圈 True,False
+			forloop.last 判斷是否為最後一次迴圈
+			-->
+			{% for unit in goodslist %}
+				<tr>
+					<td align="left">{{unit.0}}</td>
+					<td width="80" align="center">${{unit.1}}</td>
+
+					<td width="80" align="center">{{unit.2}}</td>
+
+					<td width="100" align="center">${{unit.3}}</td>
+				</tr>
+			{% endfor %}
+			<tr>
+				<td colspan="4" align="left" bgcolor="#fff"><strong>小記</strong></td><!--colspan合併儲存格-->
+				<td align="center" bgcolor="#fff">${{total}}</td>
+			</tr>
+			{% if total > 1000 %}
+				<tr>
+					<td colspan="4" align="left" bgcolor="#fff"><strong>折扣</strong></td>
+					<td align="center" bgcolor="#fff">- $100</td>
+				</tr>
+			{% endif %}
+
+			{% if total <= 2000 %}
+				<tr>
+					<td colspan="4" align="left" bgcolor="#fff"><strong>運費</strong></td>
+					<td align="center" bgcolor="#fff">$120</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4" align="left" bgcolor="#fff"><strong>運費</strong></td>
+					<td align="center" bgcolor="#fff">$0</td>
+				</tr>
+			{% endif %}
+				<tr>
+					<td colspan="4" align="left" bgcolor="#fff"><strong>總計</strong></td><!--colspan合併儲存格-->
+					<td align="center" bgcolor="#fff">${{grandtotal}}</td>
+				</tr>
+		</table>
+
+		<hr> <!--分隔線-->
+		<p>訂購者資料</p>
+		<table width="90%" border="0" align="center" cellpadding="4" cellspacing="0">
+			<tr>
+				<th width="100" align="center">資訊</th>
+				<th>內容</th>
+			</tr>
+			<tr>
+				<td width="100" align="center"><strong>姓名</strong></td>
+				<td><input type="text" name="cuName" value="{{name}}" required /></td>			
+			</tr>
+
+			<tr>
+				<td width="100" align="center"><strong>電話</strong></td>
+				<td><input type="text" name="phone" value="{{phone}}" required /></td>				
+			</tr>
+
+			<tr>
+				<td width="100" align="center"><strong>電子信箱</strong></td>
+				<td><input type="eamil" name="email" value="{{email}}" required></td>	
+			</tr>
+
+			<tr>
+				<td width="100" align="center"><strong>寄送地址</strong></td>
+				<td><input type="text" name="address" value="{{address}}" required></td>				
+			</tr>
+
+			<tr>
+				<td width="100" align="center"><strong>付款方式</strong></td>
+				<td>
+					<input type="radio" name="paytype" value="ATM轉帳" />ATM轉帳
+					<input type="radio" name="paytype" value="信用卡"  />信用卡
+					<input type="radio" name="paytype" value="貨到付款"  checked/>貨到付款
+				</td>
+			</tr>
+
+
+
+		</table>
+
+
+
+
+		<table border="0" align="center" cellpadding="10" cellspacing="0">
+			<tr>
+				<td><input type="button" name="Continue" value="繼續購物" onclick="window.location='/product'" /></td>
+				
+				<td><input type="button" name="Empty" value="修改購物車" onclick="window.location='/cart'" /></td>
+				<td><input type="submit" name="Order" value="確認購物"></td>
+			</tr>
+			
+		</table>
+
+
+	</form>
+</div>
+
+
+
+{% endblock %}

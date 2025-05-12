@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    {% block css %}
+  
+    {% endblock %}
+
+    {% block js %}
+    
+    {% endblock %}
+    <link href="/static/css/base.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/Images/aswrb-3nmx1.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/static/js/news.js"></script>
+    
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <div id="banner">
+            <div id="logo">
+                <a href="/news"><img src="/static/Images/logo4.png"></a>
+            </div>
+            <div id="searchbar">
+            </div>           
+        </div>
+
+        <div id="menu">
+
+            <ul>
+                <li><a href="/about">關於Royal Cacao</a></li>
+                <li><a href="/news">最新消息</a></li>
+                <li><a href="/product">皇室巧克力</a></li>
+                <li><a href="/contact">聯絡我們</a></li>
+                
+
+                {% if request.session.lcc == 'good' %}
+					<li><a href="/changePwd">會員管理</a></li>
+					<li><a href="/myorder">我的訂單</a></li>
+					<li><a href="/cart">購物車</a></li>
+					<li><a href="/logout">登出</a></li>
+
+				{% else%}
+					<li><a href="/login">會員登入</a></li>
+				{% endif%}
+
+
+            </ul>
+
+        </div>
+
+        <div id="context">
+            {% block context %}
+            <p></p>
+            {% endblock %}
+        </div>
+
+        <div id="footer">
+            <span>皇室巧克力工訪</span>
+        </div> 
+
+    </div>
+    
+</body>
+</html>
+
+

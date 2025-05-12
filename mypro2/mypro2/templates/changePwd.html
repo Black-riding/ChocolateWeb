@@ -1,0 +1,73 @@
+{% extends "BasePage.html" %} <!-- extends繼承-->
+
+{% block title %}
+	密碼變更
+{% endblock %}
+
+
+{% block js %}
+<!-- 請網站幫我做確認-->
+<script>
+  function checkPassword() {
+    var p = document.getElementById("newPwd").value;
+    var p2 = document.getElementById("repwd").value;
+    if (p === p2) {
+      return true;
+    } else {
+      alert("密碼不相符合");
+      return false;
+    }
+  }
+</script>
+
+
+{% endblock %}
+
+{% block css %}
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+{% endblock %}
+
+{% block context %}
+
+<div class="container">
+ 	<h2>忘記密碼</h2>
+	<span>{{msg}}</span>
+	<form method="post" onsubmit="return checkPassword()">
+  	{% csrf_token %} <!-- <form method="post"> 如果是post就要加csrf_token 金鑰解密-->
+
+  
+    <div class="form-group">
+      <label for="oldPwd">舊密碼:</label>
+      <input type="password" class="form-control" name="oldPwd" id="oldPwd" required  />
+    </div>
+
+    <div class="form-group">
+      <label for="newPwd">新密碼:</label>
+      <input type="password" class="form-control" name="newPwd" id="newPwd" required/>
+    </div>
+
+    <div class="form-group">
+      <label for="repwd">確認密碼:</label>
+      <input type="password" class="form-control" name="repwd" id="repwd" required/>
+    </div>
+
+
+	<button type="submit" class="btn btn-info">送出</button>
+
+  </form>
+
+ 
+
+
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+

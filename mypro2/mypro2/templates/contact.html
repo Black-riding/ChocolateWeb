@@ -1,0 +1,47 @@
+
+
+{% extends "BasePage.html" %}
+
+{% block title %}
+聯絡我們
+{% endblock %}
+
+
+{% block css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link href="/static/css/contact.css" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block context %}
+<div class="container">
+    <h2>聯絡我們</h2>
+   <form>
+      <div class="form-group">
+        <label for="username">姓名:</label>
+        <input type="text" class="form-control" name="username" id="username">
+      </div>
+
+      <div class="form-group">
+        <label for="email">信箱:</label>
+        <input type="email" class="form-control" name="email" id="email">
+      </div>
+
+      <div class="form-group">
+        <label for="subject">標題:</label>
+        <input type="email" class="form-control" name="subject" id="subject">
+      </div>
+      
+      <div class="form-group">
+        <label for="content">內容:</label>
+        <textarea class="form-control" rows="5" name="content" id="content"></textarea>
+      </div>
+
+      <button type="submit" class="but btn-primary">送出</button>
+
+    </form>
+  </div>
+
+
+{% endblock %}

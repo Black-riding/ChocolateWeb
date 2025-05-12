@@ -1,0 +1,93 @@
+{% extends "BasePage.html" %} <!-- extends繼承-->
+
+{% block titke %}
+	會員註冊
+{% endblock %}
+
+
+{% block css %}
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link href="/static/css/contact.css" rel="stylesheet">	
+{% endblock %}
+
+
+{% block js %}
+<!-- 請網站幫我做確認-->
+  <script >
+
+    function checkPassword(){
+
+      var p = document.getElementsByName("pwd")[0].value;
+      var p2 = document.getElementById("repwd").value;
+      if (p == p2){
+        return true;
+      }else{
+        alert("密碼不相符合")
+        return false;
+      }
+    }
+
+  </script>
+
+
+{% endblock %}
+
+
+{% block context %}
+
+<div class="container">
+  <h2>註冊資料</h2>
+  <span>{{msg}}</span>
+  <form method="post" onsubmit="return checkPassword()" >
+
+  	{% csrf_token %} <!-- <form method="post"> 如果是post就要加csrf_token 金鑰解密-->
+
+    <div class="form-group">
+      <label for="uName">姓名:</label> <!-- label for指定id 點標題就會傳到input裡面去-->
+      <input type="text" class="form-control" name="uName" id="uName" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" name="email" id="email" required/>
+    </div>
+
+    <div class="form-group">
+      <label for="tel">聯絡電話:</label>
+      <input type="text" class="form-control" name="tel" id="tel" required/>
+    </div>
+
+    <div class="form-group">
+      <label for="address">地址:</label>
+      <input type="text" class="form-control" name="address" id="address" required/>
+    </div>
+
+    <div class="form-group">
+      <label for="birthday">生日:</label>
+      <input type="date" class="form-control" name="birthday" id="birthday" required/>
+    </div>
+
+    <div class="form-group">
+      <label for="pwd">密碼:</label>
+      <input type="password" class="form-control" name="pwd" id="pwd" required  />
+    </div>
+
+    <div class="form-group">
+      <label for="repwd">確認密碼:</label>
+      <input type="password" class="form-control" name="repwd" id="repwd" required />
+    </div>
+
+    <div class="form-group">
+      <label>性別</label>
+      <input type="radio" name="sex" value="M"/>男
+      <input type="radio" name="sex" value="F" checked />女
+    </div>
+
+	<button type="submit" class="btn btn-info">送出</button>
+
+  </form>
+
+
+
+</div>
+{% endblock %}

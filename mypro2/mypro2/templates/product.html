@@ -1,0 +1,54 @@
+{% extends "BasePage.html" %} <!-- extends繼承-->
+
+{% block title %}
+	皇家巧克力
+{% endblock %}
+
+{% block css %}
+		<link href="/static/css/product.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block context %}
+	
+	<div id="searchArea">
+		<form action="" method="get">
+			關鍵字查詢:<input type="text" class="forminput" name="prokey" value="{{key}}" /><br>
+			最低價格：<input type="text" class="forminput" name="lowprice" value="{{lowprice}}" />
+			最高價格：<input type="text" class="forminput" name="highprice" value="{{highprice}}"><br>
+			<button type="submit">查詢</button>
+			
+		</form>
+		
+	</div>
+<div style="clear: both;"></div> <!-- 清除浮板 -->
+
+	{% for row in data %}
+		
+		<div class="Area">
+			<div class="imginfo">
+			<img src="{{row.photo_url}}" >
+			</div>
+
+			<div class="info">
+				<p>{{row.name}}</p>
+				<span>NT：${{row.price}}</span><br>
+				<span>會員優惠NT：${{row.discount}}</span>
+			</div>
+			<a href="/addtocart/add/{{row.id}}/">加入購物車</a>
+		</div>
+
+
+	{% endfor %}
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+{% extends "BasePage.html" %} <!-- extends繼承-->
+
+{% block title %}
+	歷史訂單
+{% endblock %}
+
+
+{% block context %}
+	
+	<div style="margin-top: 50px"></div>
+	<div id="cartDiv">
+		<table border="0" width="90%" cellpadding="10" cellspacing="0">
+			<tr>
+				<th bgcolor="#cccccc">訂單編號</th>
+				<th bgcolor="#cccccc">訂單日期</th>
+				<th bgcolor="#cccccc">付款金額</th>
+				<th bgcolor="#cccccc">付款方式</th>
+			</tr>
+			{% for unit in order %}
+				<tr>
+					<td align="center"><a href="/cartordercheck/?orderid={{unit.id}}&customemail={{request.session.myEmail}}">{{unit.id}}</a></td>
+					<td align="center">{{unit.create_date}}</td>
+					<td align="center">{{unit.grandtotal}}</td>
+					{% if unit.paytype == 'ATM轉帳' %}
+						<td align="center"><a href="/reportBank/?orderid={{unit.id}}&customemail={{request.session.myEmail}}">{{unit.paytype}}</a></td>
+					{% else %}
+						<td align="center">{{unit.paytype}}</td>
+					{% endif%}
+				</tr>
+			{% endfor %}
+		</table>
+		
+	</div>
+
+
+
+
+{% endblock %}
+

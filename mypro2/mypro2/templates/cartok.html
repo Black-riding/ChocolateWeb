@@ -1,0 +1,22 @@
+{% extends "BasePage.html" %} <!-- extends繼承-->
+
+{% block title %}
+	購物完成
+{% endblock %}
+
+
+{% block context %}
+	
+	<div style="margin-top: 50px"></div>
+	<div id="cartDiv">
+		<p>訂購完成資訊</p>
+		<p>非常感謝您的購買，我們會盡快完成您的訂單</p>
+		<p>親：{{name}}先生/小姐，賀成立</p>
+		<p><a href="/cartordercheck/?orderid={{orderid}}&customemail={{email}}">訂單資訊</a></p>
+	</div>
+
+
+
+
+{% endblock %}
+

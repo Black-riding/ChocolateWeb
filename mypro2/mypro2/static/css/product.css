@@ -1,0 +1,79 @@
+.Area{
+	width: 18%;
+	float:left; /*浮板left靠左 right靠右*/
+	border: 1px solid #c3c3c3; /*border邊框 solid粗線*/
+	border-radius: 15px;
+	display: block;
+	margin: 0px 0.8% 35px;
+	height: 570px;
+
+
+}
+
+.Area img{
+
+	width: 100%;
+	border-radius: 15px;
+}
+
+.info p{
+
+	font-size: 23px;
+	font-weight: bold;
+	word-break: break-all; /*強制斷行*/
+
+}
+
+.info span{
+	font-size: 18px;
+	color: #ff6000;
+	/*display: block; 有可以用這個斷行*/
+}
+
+
+#searchArea input{
+	padding: 6px;
+	border: 1px solid #ccc; /*邊框線*/
+	border-radius: 15px; /*外寬線*/
+	background-color: #fff; 
+	outline: none;
+	font-size: 15px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+#searchArea button{
+	background-color: #0000ff;
+	border: none; /*邊框線*/
+	color: #fff;
+	text-align: center; /*文字對齊方式 center置中*/
+	font-size: 18px;
+	padding: 15px 30px;
+
+}
+
+#searchArea{
+
+	float: left;
+	margin-left: 35%;
+	margin-top: 50px;
+	margin-bottom: 50px;
+
+}
+
+/*
+padding 內距
+margin 外距
+
+範例:
+padding 10ox 上下左右 內縮
+padding: 15px 30px; 15是上下 30px是左右
+padding: 5px 30px 5px; 上、左右、下
+padding: 5px 10px 20px 30px; 上、右、下、左
+
+指定內縮
+padding-top -left - right -bottom
+
+
+
+*/

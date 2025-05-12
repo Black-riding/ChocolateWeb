@@ -1,0 +1,89 @@
+{% extends "BasePage.html" %} <!-- extends繼承-->
+
+{% block title %}
+	購物車
+{% endblock %}
+
+
+{% block context %}
+
+{% if empty == '1' %}
+	<div style="margin-top: 75px;">
+		<p>購物車是空的</p>
+	</div>
+{% else %}
+	<div style="margin-top: 75px;"></div>
+	<div id="cartDiv">
+		<form action="/addtocart/update/" method="post"> <!--因為方法是post一定要加token-->
+			{% csrf_token %}
+			<table width="90%" cellpadding="4" cellspacing="0" border="0" align="center"><!--border邊框線 align表格置中-->
+				<tr>
+					<th width="60" align="center">取消</th>
+					<th align="left">商品名稱</th>
+					<th width="80" align="center">單價</th>
+					<th width="80" align="center">數量</th>
+					<th width="100" align="center">金額</th>
+				</tr>
+				<!--
+				forloop.counter0 從0開始遞增
+				forloop.counter 從1開始遞增
+				forloop.revcounter0 從總數開始遞減到0
+				forloop.revcounter 從總數開始遞減到1
+				forloop.first 判斷是否為第1次迴圈 True,False
+				forloop.last 判斷是否為最後一次迴圈
+				-->
+				{% for unit in goodslist %}
+					<tr>
+						<td bgcolor="#0f0"><a href="/addtocart/delete/{{forloop.counter0}}" class="delcart" onclick="confirmLink('確定刪除嗎?'); return document.returnValue">刪除</a></td>
+						<td align="left">{{unit.0}}</td>
+						<td width="80" align="center">${{unit.1}}</td>
+						<td width="80" align="center"><input type="text" name="qty{{forloop.counter0}}" id="qty{{forloop.counter0}}" value="{{unit.2}}" size="2"/></td>
+						<td width="100" align="center">${{unit.3}}</td>
+					</tr>
+				{% endfor %}
+				<tr>
+					<td colspan="4" align="left" bgcolor="#fff"><strong>小記</strong></td><!--colspan合併儲存格-->
+					<td align="center" bgcolor="#fff">${{total}}</td>
+				</tr>
+				{% if total > 1000 %}
+				<tr>
+					<td colspan="4" align="left" bgcolor="#fff"><strong>折扣</strong></td>
+					<td align="center" bgcolor="#fff">- $100</td>
+				</tr>
+				{% endif %}
+
+				{% if total <= 2000 %}
+				<tr>
+					<td colspan="4" align="left" bgcolor="#fff"><strong>運費</strong></td>
+					<td align="center" bgcolor="#fff">$120</td>
+				</tr>
+				{% else %}
+				<tr>
+					<td colspan="4" align="left" bgcolor="#fff"><strong>運費</strong></td>
+					<td align="center" bgcolor="#fff">$0</td>
+				</tr>
+				{% endif %}
+					<tr>
+						<td colspan="4" align="left" bgcolor="#fff"><strong>總計</strong></td><!--colspan合併儲存格-->
+						<td align="center" bgcolor="#fff">${{grandtotal}}</td>
+					</tr>
+			</table>
+
+			<table border="0" align="center" cellpadding="10" cellspacing="0">
+				<tr>
+					<td><input type="button" name="Continue" value="繼續購物" onclick="window.location='/product'" /></td>
+					<td><input type="submit" name="Submit" value="更新購物車"/></td>
+					<td><input type="button" name="Empty" value="清空購物車" onclick="window.location='/addtocart/empty/'" /></td>
+					<td><input type="button" name="Order" value="我要結帳" onclick="window.location='/cartorder/'" /></td>
+				</tr>
+				
+			</table>
+
+
+		</form>
+	</div>
+
+{% endif %}
+
+
+{% endblock %}
