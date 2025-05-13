@@ -31,13 +31,10 @@ from member.views import register,login,logout,changePwd
 #購物車
 from cart.views import addtocart,cart,cartorder,cartok,cartordercheck,myorder,reportBank,bankfiveok,ECPayCredit,ecpsuccess,returnok
 # Swagger
-from rest_framework.routers import DefaultRouter
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-router = DefaultRouter()
-router.register(r'goods', GoodsViewSet)
 schema_view = get_schema_view(
    openapi.Info(
       title="Swagger API",
@@ -82,7 +79,6 @@ urlpatterns = [
     path('Memberapi/',include('member.urls')),
     path('Cartapi/',include('cart.urls')),
     path('Swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-
 
 
 ]

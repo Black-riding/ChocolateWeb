@@ -8,9 +8,14 @@ from product.models import Goods  # 抓商品裡面的資料
 from django.utils.html import format_html  # html
 
 #API
-from rest_framework.viewsets import ModelViewSet
-from cart.serializers import cartSerializers
-from cart.models import DetailModel
+from rest_framework.views import APIView #自訂 HTTP 方法的行為
+from rest_framework.response import Response #回傳 HTTP 回應
+from rest_framework import status #定義回應的 HTTP 狀態碼
+from django.shortcuts import get_object_or_404 #試圖取得資料物件，若無資料會自動回傳 404。
+from serializers import cartSerializers
+
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 # ---綠界
 import os
@@ -394,7 +399,45 @@ def returnok(request):
     return render(request,'returnok.html',locals())
 
 #API
-class CartViewSet(ModelViewSet):
-    queryset =DetailModel.objects.all()
-    serializer_class = cartSerializers
+class ArticleListCreateAPIView(APIView):
+    @swagger_auto_schema(
+        operation_description="取得所有文章列表",
+        responses={200: cartSerializers(many=True)}
+    )
 
+    def get(self, request):
+        articles = models.objects.all()
+        serializer = cartSerializers(articles, many=True)
+        return Response(serializer.data)
+
+    @swagger_auto_schema(
+        operation_description="建立一篇新文章",
+        request_body=cartSerializers,
+        responses={201: cartSerializers}
+    )
+    def post(self, request):
+        serializer = cartSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ArticleDetailAPIView(APIView):
+    def get(self, request, pk):
+        article = get_object_or_404(models, pk=pk)
+        serializer = cartSerializers(article)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        article = get_object_or_404(models, pk=pk)
+        serializer = cartSerializers(article, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        article = get_object_or_404(models, pk=pk)
+        article.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
