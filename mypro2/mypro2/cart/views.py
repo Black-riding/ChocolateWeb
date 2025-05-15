@@ -12,7 +12,7 @@ from rest_framework.views import APIView #自訂 HTTP 方法的行為
 from rest_framework.response import Response #回傳 HTTP 回應
 from rest_framework import status #定義回應的 HTTP 狀態碼
 from django.shortcuts import get_object_or_404 #試圖取得資料物件，若無資料會自動回傳 404。
-from serializers import cartSerializers
+from cart.serializers import cartSerializers
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
